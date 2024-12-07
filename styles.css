@@ -1,0 +1,42 @@
+/*Estilos generales*/
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #eaaedb;
+    margin:0;
+    padding:20px;
+}
+
+/*Encabezado*/
+header{
+
+    background-color: #954caf;
+    color: white;
+    padding:20px;
+    text-align: center;
+}
+
+/*Parrafos*/
+p{
+    font-size: 19px;
+    line-height: 1.6;
+}
+
+/*Boton*/
+button{
+    padding: 10px 20px;
+    background-color: #e684cc;
+    color: white;
+    border: none;
+    cursor:pointer;
+}
+ button:hover{
+    background-color: #45a049;
+
+ }
+
+ /*pie de pagina*/
+footer{
+    margin-top: 20px;
+    text-align: center;
+    color:#c870aa;
+}

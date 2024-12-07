@@ -1,0 +1,99 @@
+/* Estilo global */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #ba6262; /* Fondo oscuro */
+}
+
+/* Estilo del encabezado */
+header h1, header h2 {
+    text-align: center;
+    margin: 0;
+    padding: 10px;
+}
+
+/* Estilo del menú de navegación */
+nav {
+    position: absolute;
+    right: 50;
+    top:100px;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 5px;
+}
+
+nav a {
+    text-decoration: none;
+    padding: 5px 10px;
+    background-color: #007BFF;
+    color: white;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+nav a:hover {
+    background-color: #0056b3;
+}
+main p {
+    
+   
+    margin-bottom: 150px; /* Espacio inferior estándar */
+    }
+
+/* Estilo de la imagen */
+section img {
+    display: block;
+    margin: 20px auto;
+    border: 5px solid white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 300px;
+    height: auto;
+}
+
+    .info-box {
+        background-color: #ffffff; /* Fondo blanco */
+        border: 1px solid #ddd; /* Borde tenue */
+        border-radius: 10px; /* Bordes redondeados */
+        padding: 40px; /* Espaciado interno */
+        margin: 450px auto; /* Espaciado entre cuadros y centrado */
+        max-width: 800px; /* Ancho máximo para cuadros grandes */
+        max-height: 50px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+        transition: box-shadow 0.3s ease, transform 0.3s ease; /* Suavidad en animación */
+    }
+    
+    .info-box:hover {
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Sombra más fuerte al pasar el cursor */
+        transform: translateY(-5px); /* Efecto de levitar */
+    }
+    
+    .info-box h3 {
+        margin-top: 0; /* Quita margen superior */
+        font-size: 1.5em; /* Tamaño del título */
+        text-align: center; /* Centra el texto del título */
+        color: #333; /* Color del texto del título */
+    }
+
+/* Estilo del pie de página */
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+
+footer p {
+    margin: 5px 0;
+}
+
+footer a {
+    color: #007BFF;
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
