@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestión de Proyectos y Citas</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f3f4f6;
+      color: #333;
+    }
+
+    header {
+      background-color: #4CAF50;
+      color: white;
+      padding: 1rem 2rem;
+      text-align: center;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 2rem auto;
+      padding: 1rem;
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h1, h2 {
+      color: #4CAF50;
+      margin-bottom: 1rem;
+    }
+
+    .project {
+      margin-bottom: 2rem;
+    }
+
+    .task {
+      margin: 1rem 0;
+      padding: 1rem;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      background-color: #f9fafb;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .task.completed {
+      background-color: #e6ffe6;
+      border-color: #8bc34a;
+    }
+
+    .task h3 {
+      margin: 0 0 0.5rem 0;
+    }
+
+    .task p {
+      margin: 0.3rem 0;
+    }
+
+    .add-task {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .add-task input, .add-task select {
+      flex: 1;
+      padding: 0.5rem;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      font-size: 1rem;
+    }
+
+    .add-task button {
+      padding: 0.5rem 1rem;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background-color 0.3s ease;
+    }
+
+    .add-task button:hover {
+      background-color: #45a049;
+    }
+
+    .task button {
+      background-color: #f44336;
+      color: white;
+      border: none;
+      padding: 0.3rem 0.6rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: background-color 0.3s ease;
+    }
+
+    .task button:hover {
+      background-color: #d32f2f;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 2rem;
+      padding: 1rem;
+      background-color: #f1f1f1;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Gestión de Proyectos y Citas</h1>
+  </header>
+  <div class="container" id="project-container">
+    <!-- El contenido será cargado dinámicamente aquí -->
+  </div>
+  <footer>
+    <p>&copy; 2024 Gestión de Proyectos y Citas</p>
+  </footer>
+
+  <script>
+    const data = {
+      "proyectos": [
+        {
+          "id": 1,
+          "nombre": "Proyecto Clínica Odontológica",
+          "descripcion": "Desarrollo de un sistema de gestión para la clínica",
+          "tareas": [
+            {
+              "id": 1,
+              "nombre": "Diseñar la base de datos",
+              "descripcion": "Definir las tablas, campos y relaciones para almacenar",
+              "estado_compltado": false,
+              "fecha_limite": "2024-12-01"
+            },
+            {
+              "id": 2,
+              "nombre": "Implementar backend",
+              "descripcion": "Crear las APIs necesarias para gestionar las operaciones",
+              "estado_compltado": false,
+              "fecha_limite": "2024-12-15"
+            },
+            {
+              "id": 3,
+              "nombre": "Diseño de UI/UX",
+              "descripcion": "Desarrollar una interfaz amigable para la gestión",
+              "estado_compltado": true,
+              "fecha_limite": "2024-11-20"
+            }
+          ]
+        }
+      ]
+    };
+
+    const container = document.getElementById('project-container');
+
+    function renderProjects() {
+      container.innerHTML = '';
+      data.proyectos.forEach(proyecto => {
+        const projectDiv = document.createElement('div');
+        projectDiv.classList.add('project');
+
+        projectDiv.innerHTML = `
+          <h2>${proyecto.nombre}</h2>
+          <p>${proyecto.descripcion}</p>
+          <div class="add-task">
+            <input type="text" id="task-name-${proyecto.id}" placeholder="Nombre de la tarea" required />
+            <input type="date" id="task-date-${proyecto.id}" required />
+            <input type="text" id="task-desc-${proyecto.id}" placeholder="Descripción de la tarea" required />
+            <button onclick="addTask(${proyecto.id})">Agregar Tarea</button>
+          </div>
+          <h3>Tareas:</h3>
+        `;
+
+        const taskListDiv = document.createElement('div');
+
+        proyecto.tareas.forEach(tarea => {
+          const taskDiv = document.createElement('div');
+          taskDiv.classList.add('task');
+          if (tarea.estado_compltado) taskDiv.classList.add('completed');
+
+          taskDiv.innerHTML = `
+            <div>
+              <h3>${tarea.nombre}</h3>
+              <p>${tarea.descripcion}</p>
+              <p><strong>Fecha límite:</strong> ${tarea.fecha_limite}</p>
+              <p><strong>Estado:</strong> ${tarea.estado_compltado ? 'Completado' : 'Pendiente'}</p>
+            </div>
+            <button onclick="deleteTask(${proyecto.id}, ${tarea.id})">Eliminar</button>
+          `;
+
+          taskListDiv.appendChild(taskDiv);
+        });
+
+        projectDiv.appendChild(taskListDiv);
+        container.appendChild(projectDiv);
+      });
+    }
+
+    function addTask(projectId) {
+      const nameInput = document.getElementById(`task-name-${projectId}`);
+      const dateInput = document.getElementById(`task-date-${projectId}`);
+      const descInput = document.getElementById(`task-desc-${projectId}`);
+
+      const taskName = nameInput.value.trim();
+      const taskDate = dateInput.value;
+      const taskDesc = descInput.value.trim();
+
+      if (!taskName || !taskDate || !taskDesc) {
+        alert('Por favor, completa todos los campos para agregar una tarea 1.');
+        return;
+      }
+
+      const newTask = {
+        id: Date.now(),
+        nombre: taskName,
+        descripcion: taskDesc,
+        estado_compltado: false,
+        fecha_limite: taskDate
+      };
+
+      const project = data.proyectos.find(proyecto => proyecto.id === projectId);
+      project.tareas.push(newTask);
+
+      nameInput.value = '';
+      dateInput.value = '';
+      descInput.value = '';
+
+      renderProjects();
+    }
+
+    function deleteTask(projectId, taskId) {
+      const project = data.proyectos.find(proyecto => proyecto.id === projectId);
+      project.tareas = project.tareas.filter(tarea => tarea.id !== taskId);
+      renderProjects();
+    }
+
+    renderProjects();
+  </script>
+</body>
+</html>
